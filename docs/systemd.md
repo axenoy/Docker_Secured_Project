@@ -1,0 +1,2 @@
+# Service logic
+This configuration utilizes 'systemd' to manage the Node.js application as a daemon. Main features: Dependency management(requires, after), lifecycle (simple type and restart policies), resource controls (cpu and memory limits and core dump protection), security hardering (disable privilege escalation and private temporary direcory).
