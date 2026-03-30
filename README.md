@@ -1,42 +1,65 @@
 ## Project Overview:
-This project focuses on the manual deployment and securing of a web server without containerization(No Docker). The goal is to demonstrate deep expertise in System administration, DevOps and DevSecOps by building a secured and robust "Bare metal" infrastructure.
+This project is containerized evolution of my previous "bare metal" deployment. The primary goal is to re-engineer the infrasructure using docker orchestration and security.
 
 ## Attribution: 
-Big part of backend logic based on [this Habr article](https://habr.com/ru/companies/otus/articles/828684/).
+* [Base project (NoDocker_SecuredProject)](https://github.com/axenoy/NoDocker_SecuredProject)
 
 ## Attention: 
-Some files are included for demonstration purposes and should not be present in production repositories. See the docs directory for more information.
+Some files are included for demonstration purposes and should not be present in production repositories.
 
-## Documentation
-* [Deployment Guide](docs/getting-started.md) — How to install on a server.
-* [Environment Setup](docs/env-setup.md) — How to configure .env.
+## Differences from base project:
+* Replaced 'systemd' units and manual OS setup with docker-compose and optimized Dockerfiles.
+* Manual 'ufw/sysctl' is replaced by OCI Seccomp profiles, linux capabilities dropping and network isolation.
+* Legacy '*-check.sh' scripts integrated into docker-healthcheck instructions.
 
-## Project 
-* Tech Stack: JavaScript, PostgreSQL, Nginx.
-* Assemblers: None.
+## Documentation:
+[Docker deployment guide](docs/docker-guide.md) - Startup instructions.
+
+## Project tech stack:
 * OS: Ubuntu.
+* Runtime: Node.js.
+* Database: PostgreSQL.
+* Reverse Proxy: Nginx(custom build).
+* Orchestration: Docker-compose.
+* Security: Seccomp, linux capabilities, hadolint.
+* Monitoring: Prometheus, grafana, node exporter.
 
 ### General project plan:
-1. Manual deployment on tech stack above on Ubuntu.
-2. Clean separation between user and admin interfaces.
-    * 2.1 Ensure no availability to admin address for 3rd faces.
-3. Nginx configuration and reusable snippets in /nginx/snippets/
-4. Development of four 'check scripts' - a custom shell script for security risk assessment.
-5. Systemd configure via custom unit files. 
-    * 5.1 Auto-restart policies for various failure cases.
-    * 5.2 Setting resource limits and depends.
-6. Setup guide and scripts.
+1. Utilize the [base project](https://github.com/axenoy/NoDocker_SecuredProject).
+2. Develop optimized Dockerfiles for each project service using best practises.
+3. Develop a robust docker-compose file using best practises.
+4. Develop startup guide.
 
-### Nginx configuration plan:
-1. Use 'include' directive, for granular location management.
-   * 1.1 Enable and tune request caching parameters.
-   * 1.2 Implement IP-based blacklist/filtering. 
-2. Switch worker processes in auto mode.
-3. Redirect traffic from 80 to 443 port.
-4. Hide nginx version details in HTTP headers and "error_pages".
-5. Cofigure the level of logging for different locations.
-6. Implement multiple compression algorithms.
-7. Configure two-factor RPS limits.
-   * 7.1 Different limits for admin and user.
-8. Mask the status code from 503 to 404.
-9. Enable mapping.
+### Docker plan:
+1. Containerizaion and layer optimization:
+    * 1.1 Implement multi-stage dockerfiles for Node.js, frontend and nginx using pinned versions of alpine-based images.
+    * 1.2 Configure .dockerignore to prevent sensitive data and unnecessary files from entering the build context.
+    * 1.3 Install dependencies from 'package-lock.json' (detailed in [docker-guide.md](docs/docker-guide.md)).
+2. Orchestration and network isolation:
+    * 2.1 Orchestration via docker-compose.
+    * 2.2 Division into dedicated frontend and backend network.
+    * 2.3 Disable external network access for containers to reduce attack surface.
+    * 2.4 Configure restart policy for automated service recovery.
+    * 2.5 Implement strict limits for CPU, RAM and PIDs.
+    * 2.6 Implement guaranteed hardware resource reservation for critical services.
+3. Security:
+    * 3.1 Drop all app capabilities via 'cap_drop: [ALL]' command execution and enable required only.
+    * 3.2 Trace application syscalls using 'sysdig', generate a profile in logging mode, and create a whitelist via OCI seccomp generator.
+    * 3.3 Set up non-root user and change his group in container.
+    * 3.4 Privilege escalataion prevention.
+    * 3.5 Mount configuration files and directories with read-only permissions.
+    * 3.6 Use secret token via RUN for hiding from docker image history.
+4. Custom health-check integrity:
+    * 4.1 Implement via specialized scripts.
+    * 4.2 Utilize dockerfile healhcheck instructions.
+5. Data persistence and environment:
+    * 5.1 Set up docker volumes for persistent and secure PostgreSQL data storage.
+    * 5.2 Use /docker-entrypoint-initdb.d/ for auromatic database schema initialization.
+    * 5.3 Centralize configuration management via .env file.
+6. Enable hadolint.
+7. Enable logging.
+8. Monitoring via using stack below:
+    * 8.1 Prometheus.
+    * 8.2 Grafana.
+    * 8.3 Node exporter.
+    * 8.4 cAdvisor.
