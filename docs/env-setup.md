@@ -14,7 +14,6 @@ Run: 'sudo bash env-setup.sh <yourdomain.com>'
 One the setup script is executed, the following tools become available globally. 
 
 Services:
-* server-check.sh - Audit SSH, UFW and sensitive file permissions.
 * nginx-check.sh - Verify SSL protocols, security headers and rate-limiting zones.
 * node-check.sh - Checks if Node.js is running as root and audits package.json vulnerabilities.
 * postgre-check.sh - Ensures the database is not exposed to the public web and checks for 'trust' auth methods.
