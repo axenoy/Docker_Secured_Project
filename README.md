@@ -17,9 +17,9 @@ Some files are included for demonstration purposes and should not be present in 
 
 ## Project tech stack:
 * OS: Ubuntu.
-* Runtime: Node.js.
-* Database: PostgreSQL.
-* Reverse Proxy: Nginx(custom build).
+* Runtime: Node.js:20.
+* Database: PostgreSQL:16.
+* Reverse Proxy: Nginx(custom build):1.25.
 * Orchestration: Docker-compose.
 * Security: Seccomp, linux capabilities, hadolint.
 * Monitoring: Prometheus, grafana, node exporter.
@@ -48,7 +48,6 @@ Some files are included for demonstration purposes and should not be present in 
     * 3.3 Set up non-root user and change his group in container.
     * 3.4 Privilege escalataion prevention.
     * 3.5 Mount configuration files and directories with read-only permissions.
-    * 3.6 Use secret token via RUN for hiding from docker image history.
 4. Custom health-check integrity:
     * 4.1 Implement via specialized scripts.
     * 4.2 Utilize dockerfile healhcheck instructions.

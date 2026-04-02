@@ -1,7 +1,7 @@
 # Nginx 
 
 ## nginx.conf
-The main config file for backend application, focused on performance, security and reliability. Main features: Automatic worker scaling, keepalive connections, gzip and brotli compression, upstream with primary and backup servers, failover, proxy cache with size, rate limiting, security and modular structure.
+The main config file for backend application, focused on performance, security and reliability. Main features: Automatic worker scaling, keepalive connections, gzip and brotli compression, upstream with primary server, failover, proxy cache with size, rate limiting, security and modular structure.
 
 
 ## sites
@@ -29,3 +29,6 @@ Disable proxy caching to ensure sensitive data is never stored.
 
 ### snippets/proxy.conf
 This file defines core proxy behaviour for communication with backend servers. Enable buffering to improve performance and reduce backend load. Uses HTTP/1.1 with keepalive for efficient connections. Configured timeouts to prevent hanging requests. Implements retry logic for upstream failover. Forwards essential client and request metadata via headers.
+
+### ssl
+This directory for ssl certificates.
