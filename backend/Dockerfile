@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci --only=production
 
-# Final image
+# Final image(the reason of usage another FROM was explained in docker-guide.md)
 FROM node:20-bookworm-slim
 WORKDIR /app
 
@@ -13,6 +13,7 @@ RUN groupadd -r appgroup && useradd -r -g appgroup -s /sbin/nologin appuser
 COPY --from=prod-deps --chown=appuser:appgroup /app/node_modules/ ./node_modules
 COPY --chown=appuser:appgroup ./backend ./
 
+# Clean install w/o documentation.
 RUN apt-get update && apt-get install -y --no-install-recommends curl \
     && rm -rf /var/lib/apt/lists/*
 
