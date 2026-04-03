@@ -29,3 +29,17 @@ All was explained in previous docker files.
 # Orchestration
 ## Docker-compose
 After whitelist
+
+Installation:
+
+Перенеси .env в корень проекта
+
+Clone the project
+
+Install docker and compose: 
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+
+sudo apt-install net-tools
+
+sudo docker compose up -d --build
