@@ -28,6 +28,8 @@ services:
     container_name: ${BACKEND_CONTAINER_NAME}
     restart: unless-stopped
     read_only: true
+    volumes:
+      - ./logs:/app/logs:rw
     tmpfs:
       - /tmp:uid=1000,gid=1000
     security_opt:

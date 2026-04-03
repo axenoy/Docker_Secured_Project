@@ -1,8 +1,11 @@
 const path = require('path');
 const { createLogger, transports, format } = require('winston');
 
-const errorLogPath = path.join(__dirname, '../../Bclogs/error.log');
-const combinedLogPath = path.join(__dirname, '../../Bclogs/combined.log');
+const logDir = path.join(process.cwd(), 'logs'); 
+
+const errorLogPath = path.join(logDir, 'error.log');
+const combinedLogPath = path.join(logDir, 'combined.log');
+
 
 const logger = createLogger({
     level: 'info',

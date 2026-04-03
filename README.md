@@ -13,13 +13,14 @@ Some files are included for demonstration purposes and should not be present in 
 * Legacy '*-check.sh' scripts integrated into docker-healthcheck instructions.
 
 ## Documentation:
-[Docker deployment guide](docs/docker-guide.md) - Startup instructions.
+[Docker information](docs/docker-info.md) - Docker information.
+[Docker deployment guide](docs/getting-started.md) - Startup instructions.
 
 ## Project tech stack:
 * OS: Ubuntu.
 * Runtime: Node.js:20.
 * Database: PostgreSQL:16.
-* Reverse Proxy: Nginx(custom build):1.25.
+* Reverse Proxy: Nginx:stable-alpine.
 * Orchestration: Docker-compose.
 * Security: Seccomp, linux capabilities, hadolint.
 * Monitoring: Prometheus, grafana, node exporter.
@@ -34,7 +35,6 @@ Some files are included for demonstration purposes and should not be present in 
 1. Containerizaion and layer optimization:
     * 1.1 Implement multi-stage dockerfiles for Node.js, frontend and nginx using pinned versions of alpine-based images.
     * 1.2 Configure .dockerignore to prevent sensitive data and unnecessary files from entering the build context.
-    * 1.3 Install dependencies from 'package-lock.json' (detailed in [docker-guide.md](docs/docker-guide.md)).
 2. Orchestration and network isolation:
     * 2.1 Orchestration via docker-compose.
     * 2.2 Division into dedicated frontend and backend network.
@@ -57,8 +57,3 @@ Some files are included for demonstration purposes and should not be present in 
     * 5.3 Centralize configuration management via .env file.
 6. Enable hadolint.
 7. Enable logging.
-8. Monitoring via using stack below:
-    * 8.1 Prometheus.
-    * 8.2 Grafana.
-    * 8.3 Node exporter.
-    * 8.4 cAdvisor.

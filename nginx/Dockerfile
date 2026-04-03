@@ -1,4 +1,4 @@
-FROM nginx:1.25-bookworm-slim
+FROM nginx:stable-alpine
 
 RUN mkdir -p /var/cache/nginx && chown -R nginx:nginx /var/cache/nginx
 
