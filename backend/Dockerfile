@@ -1,7 +1,7 @@
 # Production dependencies
 FROM node:20-bookworm-slim AS prod-deps
 WORKDIR /app
-COPY package.json package-lock.json ./
+COPY backend/package.json backend/package-lock.json ./
 RUN npm ci --only=production
 
 # Final image(the reason of usage another FROM was explained in docker-guide.md)
