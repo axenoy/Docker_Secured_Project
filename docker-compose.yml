@@ -61,7 +61,8 @@ services:
 
   nginx:
     build:
-      context: ./nginx
+      context: .
+      dockerfile: nginx/Dockerfile
     image: ${NGINX_CONTAINER_NAME}:latest
     container_name: ${NGINX_CONTAINER_NAME}
     restart: always
