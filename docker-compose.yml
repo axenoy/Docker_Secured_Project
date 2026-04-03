@@ -41,10 +41,10 @@ services:
         limits: 
           cpus: '3.0'
           memory: 4096M
+          pids: 200
         reservations:
           cpus: '1.0'
           memory: 2048M
-    pids_limit: 200
     environment:
       NODE_ENV: ${NODE_ENV}
       PORT: ${BACKEND_PORT}
