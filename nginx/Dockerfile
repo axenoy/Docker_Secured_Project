@@ -14,8 +14,6 @@ COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 COPY ./nginx/snippets/ /etc/nginx/snippets/
 COPY ./nginx/sites/ /etc/nginx/sites/
 
-COPY ./nginx/ssl/ /etc/nginx/ssl/
-
 RUN chown -R nginx:nginx /var/www/html
 
 USER nginx
